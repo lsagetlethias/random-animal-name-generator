@@ -1,11 +1,16 @@
 # random-animal-name-generator
 
-It's a random animal name generator!
+It's a random animal name generator!  
+Originally from https://github.com/adzialocha/random-animal-name-generator
 
-```js
-  const generateRandomAnimalName = require('animal-name-generator')
-  const animalName = generateRandomAnimalName()
-  console.log(animalName)
+Made in Deno
+
+```ts
+  import { generateRandomAnimalName } from "https://raw.githubusercontent.com/lsagetlethias/random-animal-name-generator/main/mod.ts"
+  const animalName = generateRandomAnimalName();
+  const animalNameStartingWithS = generateRandomAnimalName("s");
+  console.log(animalName);
+  console.log(animalNameStartingWithS);
 ```
 
 With funny animal names!
@@ -36,8 +41,7 @@ Timely tasmaniantiger
 Clone the repository and install all dependencies:
 
 ```
-git clone git@github.com:adzialocha/random-animal-name-generator.git
+git clone git@github.com:lsagetlethias/random-animal-name-generator.git
 cd random-animal-name-generator
-npm install
-npm run test
+deno test -A test.ts
 ```
