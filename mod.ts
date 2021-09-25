@@ -23,8 +23,27 @@ const findCommonLetters = (lettersA: string[], lettersB: string[]) => {
   }, []);
 };
 
-const animals = groupByFirstLetter(await readJson("./animals.json"));
-const adjectives = groupByFirstLetter(await readJson("./adjectives.json"));
+const ANIMALS_PATH = "./animals.json";
+const ADJECTIVES_PATH = "./adjectives.json";
+const animalsPermissionStatus = await Deno.permissions.request({
+  name: "read",
+  path: ANIMALS_PATH,
+});
+const adjectivesPermissionStatus = await Deno.permissions.request({
+  name: "read",
+  path: ADJECTIVES_PATH,
+});
+
+if (
+  animalsPermissionStatus.state !== "granted" ||
+  adjectivesPermissionStatus.state !== "granted"
+) {
+  console.log("Can't read dictionary file. (--allow-read)");
+  Deno.exit(1);
+}
+
+const animals = groupByFirstLetter(await readJson(ANIMALS_PATH));
+const adjectives = groupByFirstLetter(await readJson(ADJECTIVES_PATH));
 
 const possibleLetters = findCommonLetters(
   [...adjectives.keys()],
