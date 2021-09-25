@@ -11,9 +11,8 @@ const groupByFirstLetter = (wordCollection: string[]) =>
     return result;
   }, new Map<string, string[]>());
 
-const pickRandomly = (wordCollection: string[]) => {
-  return wordCollection[Math.floor(Math.random() * wordCollection.length)];
-};
+const pickRandomly = (wordCollection: string[]) =>
+  wordCollection[Math.floor(Math.random() * wordCollection.length)];
 
 const findCommonLetters = (lettersA: string[], lettersB: string[]) => {
   return lettersA.reduce<string[]>((result, letter) => {
@@ -28,8 +27,8 @@ const animals = groupByFirstLetter(await readJson("./animals.json"));
 const adjectives = groupByFirstLetter(await readJson("./adjectives.json"));
 
 const possibleLetters = findCommonLetters(
-  Object.keys(adjectives),
-  Object.keys(animals),
+  [...adjectives.keys()],
+  [...animals.keys()],
 );
 
 const findRandomAdjective = (letter: string) => {
@@ -52,3 +51,7 @@ export const generateRandomAnimalName = (
 
   return `${adjective} ${animal}`;
 };
+
+if (import.meta.main) {
+  console.log(generateRandomAnimalName(Deno.args[0]));
+}
